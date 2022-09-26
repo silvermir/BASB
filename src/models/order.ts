@@ -1,22 +1,21 @@
 import Client from "../database";
 
-export type Product = {
+export type Order = {
   id?: Number;
-  product_name: string;
-  price: number;
-  category: string;
+  status: boolean;
+  user_id: number;
 };
 
-export class ProductStore {
-  async index(): Promise<Product[]> {
+export class OrderStore {
+  async index(): Promise<Order[]> {
     try {
       const conn = await Client.connect();
-      const sql = "SELECT * FROM products";
+      const sql = "SELECT * FROM orders";
       const result = await conn.query(sql);
       conn.release();
       return result.rows;
     } catch (e) {
-      throw new Error(`cant get product ${e}`);
+      throw new Error(`cant get order ${e}`);
     }
   }
 

@@ -21,11 +21,13 @@ describe("Product Model", () => {
 
   it("should add a product", async () => {
     const result = await store.create({
+      id: 1,
       product_name: "playstation",
       price: 449,
       category: "gaming",
     });
     expect(result).toEqual({
+      id: 1,
       product_name: "playstation",
       price: 449,
       category: "gaming",

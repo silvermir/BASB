@@ -5,10 +5,10 @@ const { PEPPER, saltRounds } = process.env;
 
 export type User = {
   id?: number;
-  first_name: string;
-  last_name: string;
+  first_name?: string;
+  last_name?: string;
   username: string;
-  password: string;
+  password?: string;
   password_digest?: string;
 };
 
