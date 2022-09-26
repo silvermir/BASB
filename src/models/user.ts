@@ -1,9 +1,7 @@
 import Client from "../database";
 import bcrypt from "bcrypt";
-import dotenv from "dotenv";
 
-dotenv.config();
-const { pepper, saltRounds } = process.env;
+const { PEPPER, saltRounds } = process.env;
 
 export type User = {
   id?: number;
@@ -45,7 +43,7 @@ export class UserStore {
         "INSERT INTO users (username, password_digest) VALUES($1, $2) RETURNING *";
 
       const hash = bcrypt.hashSync(
-        u.password_digest! + pepper,
+        u.password_digest! + PEPPER,
         parseInt(saltRounds!)
       );
 
@@ -66,14 +64,14 @@ export class UserStore {
 
     const result = await conn.query(sql, [username]);
 
-    console.log(password + pepper);
+    console.log(password + PEPPER);
 
     if (result.rows.length) {
       const user = result.rows[0];
 
       console.log(user);
 
-      if (bcrypt.compareSync(password + pepper, user.password_digest)) {
+      if (bcrypt.compareSync(password + PEPPER, user.password_digest)) {
         return user;
       }
     }

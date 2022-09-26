@@ -19,7 +19,7 @@ describe("Product Model", () => {
     expect(store.delete).toBeDefined();
   });
 
-  it("create method should add a product", async () => {
+  it("should add a product", async () => {
     const result = await store.create({
       product_name: "playstation",
       price: 449,
@@ -32,7 +32,7 @@ describe("Product Model", () => {
     });
   });
 
-  it("index method should return a list of products", async () => {
+  it("should return a list of products", async () => {
     const result = await store.index();
     expect(result).toEqual([
       {
@@ -44,7 +44,7 @@ describe("Product Model", () => {
     ]);
   });
 
-  it("show method should return the correct product", async () => {
+  it("should return the correct product", async () => {
     const result = await store.show("1");
     expect(result).toEqual({
       id: 1,
@@ -54,7 +54,7 @@ describe("Product Model", () => {
     });
   });
 
-  it("delete method should remove the product", async () => {
+  it("should remove the product", async () => {
     store.delete("1");
     const result = await store.index();
 
