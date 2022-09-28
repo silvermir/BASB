@@ -12,7 +12,7 @@ const index = async (_req: Request, res: Response) => {
 
 const show = async (req: Request, res: Response) => {
   try {
-    const user = await store.show(req.body.id);
+    const user = await store.show(req.params.id);
     res.json(user);
   } catch (e) {
     res.status(400);
@@ -37,10 +37,26 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
+const authencicate = async (req: Request, res: Response) => {
+  const user: User = {
+    username: req.body.username,
+    password: req.body.password,
+  };
+  try {
+    const userLogin = await store.authenticate(user.username, user.password!);
+    const token = jwt.sign({ user: userLogin }, process.env.TOKEN_SECRET!);
+    res.json(token);
+  } catch (e) {
+    res.status(400);
+    res.json(e);
+  }
+};
+
 const user_routes = (app: express.Application) => {
-  app.get("/products", verifyAuthToken, index);
-  app.get("/products/:id", verifyAuthToken, show);
-  app.post("/products", verifyAuthToken, create);
+  app.get("/users", verifyAuthToken, index);
+  app.get("/users/:id", verifyAuthToken, show);
+  app.post("/users/register", create);
+  app.post("/users/login", verifyAuthToken, authencicate);
 };
 
 export default user_routes;

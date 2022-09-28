@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 
 import { DashboardQueries } from "../services/dashboard";
 
-const dashboardRoutes = (app: express.Application) => {
+const dashboard_routes = (app: express.Application) => {
   app.get("/products_in_orders", productsInOrders);
 };
 
@@ -13,4 +13,4 @@ const productsInOrders = async (_req: Request, res: Response) => {
   res.json(products);
 };
 
-export default dashboardRoutes;
+export default dashboard_routes;

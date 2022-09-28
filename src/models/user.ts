@@ -49,9 +49,7 @@ export class UserStore {
 
       const result = await conn.query(sql, [u.username, hash]);
       const user = result.rows[0];
-
       conn.release();
-
       return user;
     } catch (err) {
       throw new Error(`error creating user (${u.username}): ${err}`);
