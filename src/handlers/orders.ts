@@ -9,43 +9,43 @@ const index = async (_req: Request, res: Response) => {
   res.json(orders);
 };
 
-const show = async (_req: Request, res: Response) => {
-  const order = await store.show(_req.params.id);
+const show = async (req: Request, res: Response) => {
+  const order = await store.show(req.params.id);
   res.json(order);
 };
 
-const create = async (_req: Request, res: Response) => {
+const create = async (req: Request, res: Response) => {
   const order: Order = {
-    user_id: _req.body.user_id,
-    status: true,
+    order_status: req.body.status,
+    user_id: req.body.user_id,
   };
   try {
     const newOrder = await store.create(order);
     res.json(newOrder);
   } catch (e) {
     res.status(400);
-    res.json(e);
+    res.json(`couldnt create order: ${e}`);
   }
 };
 
-const addProduct = async (_req: Request, res: Response) => {
-  const orderId: string = _req.params.id;
-  const productId: string = _req.body.productId;
-  const quantity: number = parseInt(_req.body.quantity);
+const addProduct = async (req: Request, res: Response) => {
+  const quantity: number = parseInt(req.body.quantity);
+  const order_id: number = parseInt(req.params.id);
+  const product_id: number = parseInt(req.body.product_id);
   try {
-    const addedProduct = await store.addProduct(quantity, orderId, productId);
+    const addedProduct = await store.addProduct(quantity, order_id, product_id);
     res.json(addedProduct);
   } catch (e) {
     res.status(400);
-    res.json(e);
+    res.json(`couldnt add product to order: ${e}`);
   }
 };
 
 const order_routes = (app: express.Application) => {
-  app.get("/orders", index);
-  app.get("/orders/:id", show);
+  app.get("/orders", verifyAuthToken, index);
+  app.get("/orders/:id", verifyAuthToken, show);
   app.post("/orders", verifyAuthToken, create);
-  app.post("/order/:id/products, addProduct");
+  app.post("/orders/:id/products", verifyAuthToken, addProduct);
 };
 
 export default order_routes;

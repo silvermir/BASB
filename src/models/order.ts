@@ -2,7 +2,7 @@ import Client from "../database";
 
 export type Order = {
   id?: Number;
-  status: boolean;
+  order_status: boolean;
   user_id: number;
 };
 
@@ -35,8 +35,8 @@ export class OrderStore {
     try {
       const conn = await Client.connect();
       const sql =
-        "INSERT INTO orders(id, status, user_id) VALUES($1, $2, $3) RETURNING *";
-      const result = await conn.query(sql, [o.id, o.status, o.user_id]);
+        "INSERT INTO orders(order_status, user_id) VALUES($1, $2) RETURNING *";
+      const result = await conn.query(sql, [o.order_status, o.user_id]);
       conn.release();
       return result.rows[0];
     } catch (e) {
@@ -58,15 +58,15 @@ export class OrderStore {
 
   async addProduct(
     quantity: number,
-    orderId: string,
-    productId: string
+    order_id: number,
+    product_id: number
   ): Promise<Order> {
     try {
       const sql =
-        "INSERT INTO order_products (quantity, order_id, prodcut_id) VALUES ($1, $2, $3) RETURNING *";
+        "INSERT INTO order_products (quantity, order_id, product_id) VALUES ($1, $2, $3) RETURNING *";
       const conn = await Client.connect();
 
-      const result = await conn.query(sql, [quantity, orderId, productId]);
+      const result = await conn.query(sql, [quantity, order_id, product_id]);
 
       const order = result.rows[0];
 
@@ -75,7 +75,7 @@ export class OrderStore {
       return order;
     } catch (e) {
       throw new Error(
-        `could not add Product ${productId} to order ${orderId}: ${e}`
+        `could not add Product ${product_id} to order ${order_id}: ${e}`
       );
     }
   }
