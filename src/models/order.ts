@@ -1,16 +1,23 @@
-import Client from "../database";
+import Client from '../database';
 
 export type Order = {
-  id?: Number;
+  id?: number;
   order_status: boolean;
   user_id: number;
+};
+
+export type OrderProduct = {
+  id?: number;
+  order_id: number;
+  product_id: number;
+  quantity: number;
 };
 
 export class OrderStore {
   async index(): Promise<Order[]> {
     try {
       const conn = await Client.connect();
-      const sql = "SELECT * FROM orders";
+      const sql = 'SELECT * FROM orders';
       const result = await conn.query(sql);
       conn.release();
       return result.rows;
@@ -22,7 +29,7 @@ export class OrderStore {
   async show(id: string): Promise<Order> {
     try {
       const conn = await Client.connect();
-      const sql = "SELECT * FROM orders WHERE id=($1)";
+      const sql = 'SELECT * FROM orders WHERE id=($1)';
       const result = await conn.query(sql, [id]);
       conn.release();
       return result.rows[0];
@@ -35,7 +42,7 @@ export class OrderStore {
     try {
       const conn = await Client.connect();
       const sql =
-        "INSERT INTO orders(order_status, user_id) VALUES($1, $2) RETURNING *";
+        'INSERT INTO orders(order_status, user_id) VALUES($1, $2) RETURNING *';
       const result = await conn.query(sql, [o.order_status, o.user_id]);
       conn.release();
       return result.rows[0];
@@ -47,7 +54,7 @@ export class OrderStore {
   async delete(id: string): Promise<Order> {
     try {
       const conn = await Client.connect();
-      const sql = "DELETE FROM orders WHERE id=($1)";
+      const sql = 'DELETE FROM orders WHERE id=($1)';
       const result = await conn.query(sql, [id]);
       conn.release();
       return result.rows[0];
@@ -56,26 +63,22 @@ export class OrderStore {
     }
   }
 
-  async addProduct(
-    quantity: number,
-    order_id: number,
-    product_id: number
-  ): Promise<Order> {
+  async addProduct(OP: OrderProduct): Promise<OrderProduct> {
     try {
       const sql =
-        "INSERT INTO order_products (quantity, order_id, product_id) VALUES ($1, $2, $3) RETURNING *";
+        'INSERT INTO order_products (order_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING *';
       const conn = await Client.connect();
-
-      const result = await conn.query(sql, [quantity, order_id, product_id]);
-
-      const order = result.rows[0];
-
+      const result = await conn.query(sql, [
+        OP.order_id,
+        OP.product_id,
+        OP.quantity
+      ]);
+      const OrderProduct = result.rows[0];
       conn.release();
-
-      return order;
+      return OrderProduct;
     } catch (e) {
       throw new Error(
-        `could not add Product ${product_id} to order ${order_id}: ${e}`
+        `could not add Product ${OP.product_id} to order ${OP.order_id}: ${e}`
       );
     }
   }

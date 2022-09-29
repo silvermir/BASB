@@ -1,4 +1,4 @@
-import Client from "../database";
+import Client from '../database';
 
 export class DashboardQueries {
   //get products in orders
@@ -8,7 +8,7 @@ export class DashboardQueries {
     try {
       const conn = await Client.connect();
       const sql =
-        "SELECT name, price, order_id FROM products INNER JOIN order_products ON product.id = order_products.id";
+        'SELECT name, price, order_id FROM products INNER JOIN order_products ON product.id = order_products.id';
 
       const result = await conn.query(sql);
 
@@ -24,7 +24,7 @@ export class DashboardQueries {
     try {
       const conn = await Client.connect();
       const sql =
-        "SELECT first_name, last_name FROM users INNER JOIN orders ON users.id = orders.user_id";
+        'SELECT first_name, last_name FROM users INNER JOIN orders ON users.id = orders.user_id';
 
       const result = await conn.query(sql);
 

@@ -1,9 +1,9 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response } from 'express';
 
-import { DashboardQueries } from "../services/dashboard";
+import { DashboardQueries } from '../services/dashboard';
 
 const dashboard_routes = (app: express.Application) => {
-  app.get("/products_in_orders", productsInOrders);
+  app.get('/products_in_orders', productsInOrders);
 };
 
 const dashboard = new DashboardQueries();

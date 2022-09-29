@@ -1,23 +1,23 @@
-import express, { Request, Response } from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
-import product_routes from "./handlers/products";
-import user_routes from "./handlers/users";
-import order_routes from "./handlers/orders";
+import express, { Request, Response } from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import product_routes from './handlers/products';
+import user_routes from './handlers/users';
+import order_routes from './handlers/orders';
 
 const app: express.Application = express();
-const address: string = "0.0.0.0:3000";
+const address = '0.0.0.0:3000';
 
 const corsOptions = {
-  origin: "http://test.com",
-  optionSuccessStatus: 200,
+  origin: 'http://test.com',
+  optionSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
-app.get("/", function (_req: Request, res: Response) {
-  res.send("Hello World!");
+app.get('/', function (_req: Request, res: Response) {
+  res.send('Hello World!');
 });
 
 product_routes(app);

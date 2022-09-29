@@ -1,7 +1,7 @@
-import Client from "../database";
+import Client from '../database';
 
 export type Product = {
-  id?: Number;
+  id?: number;
   product_name: string;
   price: number;
   category: string;
@@ -11,7 +11,7 @@ export class ProductStore {
   async index(): Promise<Product[]> {
     try {
       const conn = await Client.connect();
-      const sql = "SELECT * FROM products";
+      const sql = 'SELECT * FROM products';
       const result = await conn.query(sql);
       conn.release();
       return result.rows;
@@ -23,7 +23,7 @@ export class ProductStore {
   async show(id: string): Promise<Product> {
     try {
       const conn = await Client.connect();
-      const sql = "SELECT * FROM products WHERE id=($1)";
+      const sql = 'SELECT * FROM products WHERE id=($1)';
       const result = await conn.query(sql, [id]);
       conn.release();
       return result.rows[0];
@@ -36,11 +36,11 @@ export class ProductStore {
     try {
       const conn = await Client.connect();
       const sql =
-        "INSERT INTO products(product_name, price, category) VALUES($1, $2, $3) RETURNING *";
+        'INSERT INTO products(product_name, price, category) VALUES($1, $2, $3) RETURNING *';
       const result = await conn.query(sql, [
         p.product_name,
         p.price,
-        p.category,
+        p.category
       ]);
       conn.release();
       return result.rows[0];
@@ -52,7 +52,7 @@ export class ProductStore {
   async delete(id: string): Promise<Product> {
     try {
       const conn = await Client.connect();
-      const sql = "DELETE FROM products WHERE id=($1)";
+      const sql = 'DELETE FROM products WHERE id=($1)';
       const result = await conn.query(sql, [id]);
       conn.release();
       return result.rows[0];
