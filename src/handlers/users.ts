@@ -6,8 +6,13 @@ import verifyAuthToken from '../utilities/jwtAuth';
 const store = new UserStore();
 
 const index = async (_req: Request, res: Response) => {
-  const user = await store.index();
-  res.json(user);
+  try {
+    const user = await store.index();
+    res.json(user);
+  } catch (e) {
+    res.status(400);
+    res.json(`Error ${e}`);
+  }
 };
 
 const show = async (req: Request, res: Response) => {
@@ -36,7 +41,7 @@ const create = async (req: Request, res: Response) => {
     res.json(token);
   } catch (e) {
     res.status(400);
-    res.json(e);
+    res.json(`error ${e}`);
   }
 };
 

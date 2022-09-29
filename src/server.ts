@@ -6,7 +6,7 @@ import user_routes from './handlers/users';
 import order_routes from './handlers/orders';
 
 const app: express.Application = express();
-const address = '0.0.0.0:3000';
+const address: string = '0.0.0.0:3000';
 
 const corsOptions = {
   origin: 'http://test.com',
@@ -27,3 +27,5 @@ order_routes(app);
 app.listen(3000, function () {
   console.log(`starting app on: ${address}`);
 });
+
+export default app;

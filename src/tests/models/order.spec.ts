@@ -53,33 +53,6 @@ describe('Order Model', () => {
     });
   });
 
-  it('should return a list of products', async () => {
-    const result = await store.index();
-    expect(result).toEqual([
-      {
-        id: 1,
-        user_id: 1,
-        order_status: true
-      }
-    ]);
-  });
-
-  it('should return the correct product', async () => {
-    const result = await store.show('1');
-    expect(result).toEqual({
-      id: 1,
-      user_id: 1,
-      order_status: true
-    });
-  });
-
-  it('should remove the product', async () => {
-    store.delete('1');
-    const result = await store.index();
-
-    expect(result).toEqual([]);
-  });
-
   it('should add product to an order', async () => {
     const result = await store.addProduct({
       order_id: 1,
@@ -92,5 +65,31 @@ describe('Order Model', () => {
       product_id: 1,
       quantity: 5
     });
+  });
+
+  it('should return a list of orders', async () => {
+    const result = await store.index();
+    expect(result).toEqual([
+      {
+        id: 1,
+        user_id: 1,
+        order_status: true
+      }
+    ]);
+  });
+
+  it('should return the correct order', async () => {
+    const result = await store.show('1');
+    expect(result).toEqual({
+      id: 1,
+      user_id: 1,
+      order_status: true
+    });
+  });
+
+  it('should remove the order', async () => {
+    store.delete('1');
+    const result = await store.index();
+    expect(result).toEqual([]);
   });
 });

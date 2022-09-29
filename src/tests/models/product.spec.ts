@@ -65,7 +65,6 @@ describe('Product Model', () => {
     store.delete('1');
     store.delete('2');
     const result = await store.index();
-
     expect(result).toEqual([]);
   });
 });

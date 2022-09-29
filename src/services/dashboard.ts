@@ -3,7 +3,7 @@ import Client from '../database';
 export class DashboardQueries {
   //get products in orders
   async productsInOrders(): Promise<
-    { name: string; price: number; order_id: string }[]
+    { name: string; price: number; order_id: number }[]
   > {
     try {
       const conn = await Client.connect();
@@ -20,7 +20,9 @@ export class DashboardQueries {
     }
   }
 
-  async usersWithOrders(): Promise<{ firstName: string; lastName: string }[]> {
+  async usersWithOrders(): Promise<
+    { first_name: string; last_name: string }[]
+  > {
     try {
       const conn = await Client.connect();
       const sql =
