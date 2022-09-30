@@ -1,8 +1,16 @@
 import { ProductStore } from '../../models/product';
+import Client from '../../database';
 
 const store = new ProductStore();
 
 describe('Product Model', () => {
+  afterAll(async () => {
+    const conn = await Client.connect();
+    const sql = 'TRUNCATE TABLE products RESTART IDENTITY CASCADE;';
+    await conn.query(sql);
+    conn.release();
+  });
+
   it('should have an index method', () => {
     expect(store.index).toBeDefined();
   });
@@ -26,7 +34,7 @@ describe('Product Model', () => {
       category: 'gaming'
     });
     expect(result).toEqual({
-      id: 2,
+      id: 1,
       product_name: 'playstation',
       price: 449,
       category: 'gaming'
@@ -38,12 +46,6 @@ describe('Product Model', () => {
     expect(result).toEqual([
       {
         id: 1,
-        product_name: 'playstation',
-        price: 449,
-        category: 'gaming'
-      },
-      {
-        id: 2,
         product_name: 'playstation',
         price: 449,
         category: 'gaming'

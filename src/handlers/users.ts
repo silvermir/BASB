@@ -66,11 +66,22 @@ const authencicate = async (req: Request, res: Response) => {
   }
 };
 
+const destroy = async (req: Request, res: Response) => {
+  try {
+    const deletedUser = await store.delete(req.params.id);
+    res.json(deletedUser);
+  } catch (e) {
+    res.status(400);
+    res.json(`cant delete user ${e}`);
+  }
+};
+
 const user_routes = (app: express.Application) => {
   app.get('/users', verifyAuthToken, index);
   app.get('/users/:id', verifyAuthToken, show);
   app.post('/users/register', create);
   app.post('/users/login', verifyAuthToken, authencicate);
+  app.delete('/users/:id', verifyAuthToken, destroy);
 };
 
 export default user_routes;

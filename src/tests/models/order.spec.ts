@@ -1,10 +1,34 @@
 import { OrderStore } from '../../models/order';
 import { ProductStore } from '../../models/product';
 import { UserStore } from '../../models/user';
+import Client from '../../database';
 
 const store = new OrderStore();
 
 describe('Order Model', () => {
+  beforeAll(async () => {
+    const user = new UserStore();
+    const product = new ProductStore();
+    await user.create({
+      first_name: 'first Dummy',
+      last_name: 'last Dummy',
+      username: 'test',
+      password: 'password1424'
+    });
+    await product.create({
+      product_name: 'playstation',
+      price: 449,
+      category: 'gaming'
+    });
+  });
+
+  afterAll(async () => {
+    const conn = await Client.connect();
+    const sql =
+      'TRUNCATE TABLE users RESTART IDENTITY CASCADE; \n TRUNCATE TABLE products RESTART IDENTITY CASCADE;';
+    await conn.query(sql);
+    conn.release();
+  });
   it('should have an index method', () => {
     expect(store.index).toBeDefined();
   });
@@ -23,22 +47,6 @@ describe('Order Model', () => {
 
   it('should have a addProduct method', () => {
     expect(store.addProduct).toBeDefined();
-  });
-
-  beforeAll(async () => {
-    const user = new UserStore();
-    const product = new ProductStore();
-    await user.create({
-      first_name: 'first Dummy',
-      last_name: 'last Dummy',
-      username: 'test',
-      password: 'password1424'
-    });
-    await product.create({
-      product_name: 'playstation',
-      price: 449,
-      category: 'gaming'
-    });
   });
 
   it('should add a order', async () => {

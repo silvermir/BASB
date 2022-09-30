@@ -5,7 +5,7 @@ import Client from '../../database';
 const request = supertest(app);
 let token: string;
 
-describe('Test endpoint /users response', () => {
+describe('Test endpoint /orders response', () => {
   afterAll(async () => {
     const conn = await Client.connect();
     const sql = 'TRUNCATE TABLE users RESTART IDENTITY CASCADE;';
@@ -24,23 +24,30 @@ describe('Test endpoint /users response', () => {
     token = response.body;
   });
 
-  it('should get users index endpoint', async () => {
+  it('should get orders create endpoint', async () => {
     const response = await request
-      .get('/users')
+      .post('/orders')
       .set('Authorization', `Bearer ${token}`);
     expect(response.status).toBe(200);
   });
 
-  it('should get users show endpoint', async () => {
+  it('should get orders index endpoint', async () => {
     const response = await request
-      .get('/users/1')
+      .get('/orders')
       .set('Authorization', `Bearer ${token}`);
     expect(response.status).toBe(200);
   });
 
-  it('should get users authencicate endpoint', async () => {
+  it('should get orders show endpoint', async () => {
     const response = await request
-      .post('/users/register')
+      .get('/orders/1')
+      .set('Authorization', `Bearer ${token}`);
+    expect(response.status).toBe(200);
+  });
+
+  it('should get orders addProduct endpoint', async () => {
+    const response = await request
+      .post('/orders/1/products')
       .set('Authorization', `Bearer ${token}`);
     expect(response.status).toBe(200);
   });
