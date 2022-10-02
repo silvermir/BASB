@@ -30,7 +30,7 @@ const create = async (req: Request, res: Response) => {
 };
 
 const destroy = async (req: Request, res: Response) => {
-  const deleted = await store.delete(req.body.id);
+  const deleted = await store.delete(req.params.id);
   res.json(deleted);
 };
 
@@ -38,7 +38,7 @@ const product_routes = (app: express.Application) => {
   app.get('/products', index);
   app.get('/products/:id', show);
   app.post('/products', verifyAuthToken, create);
-  app.delete('/products', destroy);
+  app.delete('/products/:id', destroy);
 };
 
 export default product_routes;

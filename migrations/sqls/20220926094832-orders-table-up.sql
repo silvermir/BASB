@@ -1,1 +1,1 @@
-CREATE TABLE orders (id SERIAL PRIMARY KEY, order_status BOOLEAN, user_id int REFERENCES users(id));
+CREATE TABLE orders (id SERIAL PRIMARY KEY, order_status VARCHAR(10), user_id int REFERENCES users(id));

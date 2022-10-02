@@ -4,11 +4,11 @@ import { UserStore } from '../../models/user';
 import Client from '../../database';
 
 const store = new OrderStore();
+const user = new UserStore();
+const product = new ProductStore();
 
 describe('Order Model', () => {
   beforeAll(async () => {
-    const user = new UserStore();
-    const product = new ProductStore();
     await user.create({
       first_name: 'first Dummy',
       last_name: 'last Dummy',
@@ -51,13 +51,14 @@ describe('Order Model', () => {
 
   it('should add a order', async () => {
     const result = await store.create({
+      id: 1,
       user_id: 1,
-      order_status: true
+      order_status: 'active'
     });
     expect(result).toEqual({
       id: 1,
       user_id: 1,
-      order_status: true
+      order_status: 'active'
     });
   });
 
@@ -81,7 +82,7 @@ describe('Order Model', () => {
       {
         id: 1,
         user_id: 1,
-        order_status: true
+        order_status: 'active'
       }
     ]);
   });
@@ -91,7 +92,7 @@ describe('Order Model', () => {
     expect(result).toEqual({
       id: 1,
       user_id: 1,
-      order_status: true
+      order_status: 'active'
     });
   });
 
