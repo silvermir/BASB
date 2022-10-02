@@ -115,11 +115,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 | Variables    | DataType           |
 | ------------ | ------------------ |
 | id           | SERIAL PRIMARY KEY |
-| ---          | ---                |
 | product_name | VARCHAR            |
-| ---          | ---                |
 | price        | integer            |
-| ---          | ---                |
 | category     | VARCHAR            |
 
 #### User Table
@@ -127,9 +124,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 | Variables       | DataType           |
 | --------------- | ------------------ |
 | id              | SERIAL PRIMARY KEY |
-| ---             | ---                |
 | username        | VARCHAR            |
-| ---             | ---                |
 | password_digest | VARCHAR            |
 
 #### Orders Table
@@ -137,9 +132,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 | Variables    | DataType           |
 | ------------ | ------------------ |
 | id           | SERIAL PRIMARY KEY |
-| ---          | ---                |
 | order_status | VARCHAR            |
-| ---          | ---                |
 | user_id      | integer            |
 
 #### Order_Products Table
@@ -147,9 +140,6 @@ These are the notes from a meeting with the frontend developer that describe wha
 | Variables  | DataType           |
 | ---------- | ------------------ |
 | id         | SERIAL PRIMARY KEY |
-| ---        | ---                |
 | quantity   | integer            |
-| ---        | ---                |
 | order_id   | integer            |
-| ---        | ---                |
 | product_id | integer            |
