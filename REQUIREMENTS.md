@@ -108,6 +108,20 @@ These are the notes from a meeting with the frontend developer that describe wha
 * Token -> required
 * http://localhost:3000/orders/:id/products
 
+#### Dasshboards
+
+- Products in orders
+
+* Function -> show porducts in orders
+* Method -> GET
+* http://localhost:3000/products_in_orders
+
+- Users with orders
+
+* Function -> show users with orders
+* Method -> GET
+* http://localhost:3000/users_with_orders
+
 ## Data Shapes
 
 #### Product Table
