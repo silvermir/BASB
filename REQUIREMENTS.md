@@ -108,7 +108,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 * Token -> required
 * http://localhost:3000/orders/:id/products
 
-#### Dasshboards
+#### Dashboards
 
 - Products in orders
 

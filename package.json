@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
+    "migrate": "db-migrate up",
     "destroy": "db-migrate reset --env test",
     "start": "nodemon src/server.ts",
     "prettier": "prettier --config .prettierrc src/**/*.ts --write",
