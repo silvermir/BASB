@@ -10,15 +10,15 @@
 
 - run `touch .env`
 - write data:
-  POSTGRES_HOST=127.0.0.1
-  POSTGRES_DB=**choose a dev DataBase name**
-  POSTGRES_TEST_DB=**choose a test DataBase name**
-  POSTGRES_USER= **choose an username**
-  POSTGRES_PASSWORD=**choose a password**
-  ENV=dev
-  PEPPER=**choose a password**
-  SALT_ROUNDS=10
-  TOKEN_SECRET=**choose a sectret**
+  - POSTGRES_HOST=127.0.0.1
+  - POSTGRES_DB=**choose a dev DataBase name**
+  - POSTGRES_TEST_DB=**choose a test DataBase name**
+  - POSTGRES_USER= **choose an username**
+  - POSTGRES_PASSWORD=**choose a password**
+  - ENV=dev
+  - PEPPER=**choose a password**
+  - SALT_ROUNDS=10
+  - TOKEN_SECRET=**choose a sectret**
 
 ### 3. DB Creation
 
@@ -27,7 +27,7 @@
 - Use Port: 5432
 - Grant all Privivileges to choosen User
 
-### 3. Scripts
+### 4. Scripts
 
 - run `npm run migrate` to migrate the tables
 - run `npm run destroy` to delete the tables
