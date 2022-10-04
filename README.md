@@ -6,7 +6,12 @@
 
 - run ` npm install` to install all packages
 
-### 2. Add .ENV
+### 2. USE PORTS
+
+POSTGRES: 5432
+Express: 3000
+
+### 3. Add .ENV
 
 - run `touch .env`
 - write data:
@@ -20,14 +25,14 @@
   - SALT_ROUNDS=10
   - TOKEN_SECRET=**choose a sectret**
 
-### 3. DB Creation
+### 4. DB Creation
 
 - Create a user with password choosen in the .env
 - Create Postgres dev & test Databases with the choosen names in the .env
 - Use Port: 5432
 - Grant all Privivileges to choosen User
 
-### 4. Scripts
+### 5. Scripts
 
 - run `npm run migrate` to migrate the tables
 - run `npm run destroy` to delete the tables
