@@ -8,8 +8,8 @@
 
 ### 2. USE PORTS
 
-POSTGRES: 5432
-Express: 3000
+- POSTGRES: 5432
+- Express: 3000
 
 ### 3. Add .ENV
 
